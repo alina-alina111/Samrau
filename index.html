@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta name="yandex-verification" content="42a2bdbb4c3a204c" />
-    <meta name="google-site-verification" content="bS2rH1NGSwPXdHQNozhmTxI8fnnlm17TynDIC8W_z14" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Самрау | Издательство</title>
+    <title>Самрау | Издательство полного цикла</title>
+    <meta name="description" content="Издательство Самрау в Уфе: полиграфия, сувенирная продукция, дизайнерские услуги. Печать книг, брендирование, разработка макетов.">
+    <meta name="keywords" content="издательство Уфа, полиграфия Уфа, печать книг, сувениры с логотипом, дизайн Уфа">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <!-- ОРНАМЕНТЫ (редкие, в разных местах) -->
-    <div class="ornament ornament-1"></div>
-    <div class="ornament ornament-2"></div>
-    <div class="ornament ornament-3"></div>
-    <div class="ornament ornament-4"></div>
-    <div class="ornament ornament-5"></div>
-
-    <!-- ШАПКА -->
+    <!-- ШАПКА  -->
     <header class="header glass">
         <div class="container header-container">
             <div class="logo">
-                <img src="img/logo.png" alt="Самрау">
+                <img src="img/logo.png" alt="Самрау" onerror="this.src='https://placehold.co/200x60/1E3A8A/white?text=Самрау'">
             </div>
+            
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Поиск услуг..." class="search-input" value="">
+                <button id="searchBtn" class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#catalog">Услуги</a></li>
                     <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#order">Заявка</a></li>
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#faq">Вопросы</a></li>
+                    <li><a href="#contact" id="contactLink">Контакты</a></li>
+                    <li><a href="#" id="adminLink">Админ</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <a href="#" class="icon-btn"><i class="fas fa-user-circle"></i></a>
-            </div>
         </div>
     </header>
 
@@ -42,8 +40,8 @@
         <!-- СЛАЙДЕР -->
         <section class="slider-section">
             <div class="container slider-container">
-                <button class="slider-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
-                <button class="slider-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+                <button class="slider-arrow prev-arrow glass"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-arrow next-arrow glass"><i class="fas fa-chevron-right"></i></button>
                 
                 <div class="slider glass">
                     <div class="slide active">
@@ -73,67 +71,51 @@
             </div>
         </section>
 
-        <!-- КАТАЛОГ - ТРИ КАТЕГОРИИ -->
+        <!-- КАТАЛОГ -->
         <section id="catalog" class="catalog-section">
             <div class="container">
                 <h2 class="section-title">Наши <span class="gold-text">услуги</span></h2>
+                <p class="catalog-subtitle">Выберите направление, чтобы увидеть полный список услуг</p>
                 
-                <div class="catalog-grid">
-                    <!-- Полиграфия -->
-                    <div class="catalog-card glass">
-                        <div class="catalog-header">
-                            <i class="fas fa-book catalog-icon"></i>
-                            <h3>Полиграфия</h3>
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Загружается из JSON -->
+                </div>
+                
+                <!-- Блок ПОРТФОЛИО -->
+                <div class="portfolio-section">
+                    <h3 class="portfolio-title">Примеры наших <span class="gold-text">работ</span></h3>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item glass">
+                            <img src="img/книжки.jpg" alt="Подарочное издание" class="portfolio-img" loading="lazy">
+                            <div class="portfolio-info">
+                                <h4>Подарочное издание</h4>
+                                <p>Твердый переплет, тиснение фольгой</p>
+                            </div>
                         </div>
-                        <ul class="catalog-list">
-                            <li>Книги в твёрдом переплёте</li>
-                            <li>Брошюры и каталоги</li>
-                            <li>Визитки и бейджи</li>
-                            <li>Блокноты и ежедневники</li>
-                            <li>Открытки и приглашения</li>
-                            <li>Плакаты и буклеты</li>
-                            <li>Дипломы и сертификаты</li>
-                            <li>Грамоты и благодарности</li>
-                        </ul>
-                        <a href="#order" class="catalog-link">Заказать <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <!-- Сувенирная продукция -->
-                    <div class="catalog-card glass">
-                        <div class="catalog-header">
-                            <i class="fas fa-gift catalog-icon"></i>
-                            <h3>Сувенирная продукция</h3>
+                        
+                        <div class="portfolio-item glass">
+                            <img src="img/виз.jpg" alt="Премиальные визитки" class="portfolio-img" loading="lazy">
+                            <div class="portfolio-info">
+                                <h4>Премиальные визитки</h4>
+                                <p>Дизайн, печать, ламинация</p>
+                            </div>
                         </div>
-                        <ul class="catalog-list">
-                            <li>Брендирование одежды</li>
-                            <li>Кружки и термокружки</li>
-                            <li>Ручки и блокноты с логотипом</li>
-                            <li>Календари настольные</li>
-                            <li>Пакеты и упаковка</li>
-                            <li>Магниты и значки</li>
-                            <li>Брелоки и флешки</li>
-                            <li>Подарочные наборы</li>
-                        </ul>
-                        <a href="#order" class="catalog-link">Заказать <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <!-- Дизайнерские услуги -->
-                    <div class="catalog-card glass">
-                        <div class="catalog-header">
-                            <i class="fas fa-pencil-ruler catalog-icon"></i>
-                            <h3>Дизайнерские услуги</h3>
+                        
+                        <div class="portfolio-item glass">
+                            <img src="img/настольный календарь.jpg" alt="Настольный календарь" class="portfolio-img" loading="lazy">
+                            <div class="portfolio-info">
+                                <h4>Настольный календарь</h4>
+                                <p>Индивидуальный дизайн</p>
+                            </div>
                         </div>
-                        <ul class="catalog-list">
-                            <li>Разработка макетов</li>
-                            <li>Вёрстка книг и каталогов</li>
-                            <li>Фирменный стиль и логотипы</li>
-                            <li>Подготовка к печати</li>
-                            <li>Ретушь и цветокоррекция</li>
-                            <li>Дизайн упаковки</li>
-                            <li>Брендбуки и гайдлайны</li>
-                            <li>Иллюстрации и инфографика</li>
-                        </ul>
-                        <a href="#order" class="catalog-link">Заказать <i class="fas fa-arrow-right"></i></a>
+                        
+                        <div class="portfolio-item glass">
+                            <img src="img/упаковка.jpg" alt="Брендированная упаковка" class="portfolio-img" loading="lazy">
+                            <div class="portfolio-info">
+                                <h4>Брендированная упаковка</h4>
+                                <p>Разработка и печать</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,7 +165,7 @@
                                 <i class="fas fa-star gold-text"></i>
                             </div>
                         </div>
-                        <p class="review-text">Очень интересная подборка! Заказывали благодарственные письма для детей — отличные скидки и акции, приятные бонусы. Считаем важным регулярно заказывать у вас.</p>
+                        <p class="review-text">Заказывали благодарственные письма для детей — отличное качество! Приятные бонусы и скидки. Обязательно обратимся снова.</p>
                     </div>
                     
                     <div class="review-card glass">
@@ -197,7 +179,7 @@
                                 <i class="fas fa-star gold-text"></i>
                             </div>
                         </div>
-                        <p class="review-text">Заказывали приглашения на свадьбу, концерт, вечерние игрушки для ребенка. Всё выполнено качественно и в срок. Стоимость от 3 до 12 лет — очень демократичные цены.</p>
+                        <p class="review-text">Заказывали приглашения на свадьбу. Всё выполнено качественно и в срок. Очень демократичные цены, спасибо!</p>
                     </div>
                     
                     <div class="review-card glass">
@@ -211,7 +193,7 @@
                                 <i class="fas fa-star gold-text"></i>
                             </div>
                         </div>
-                        <p class="review-text">Заказывали баннеры, стильные и современные. Отличный дизайн и качество печати. Стоимость от 3 до 12 лет. Рекомендую!</p>
+                        <p class="review-text">Заказывали баннеры для мероприятия — стильные и современные. Отличный дизайн и качество печати. Рекомендую!</p>
                     </div>
                 </div>
             </div>
@@ -221,30 +203,105 @@
         <section id="order" class="order-section">
             <div class="container">
                 <div class="order-form-container glass">
-                    <h2 class="form-title">Оставь заявку <span class="gold-text">— мы перезвоним!</span></h2>
+                    <h2 class="form-title">Оставьте заявку <span class="gold-text">— мы перезвоним!</span></h2>
                     
-                    <form action="#" method="post" class="order-form">
+                    <form id="orderForm" class="order-form">
                         <div class="form-group">
-                            <label for="name">Имя</label>
+                            <label for="name">Имя *</label>
                             <input type="text" id="name" name="name" placeholder="Ваше имя" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="contact">Телефон / Email</label>
+                            <label for="contact">Телефон / Email *</label>
                             <input type="text" id="contact" name="contact" placeholder="+7 (999) 123-45-67" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="service">Услуга</label>
                             <select id="service" name="service">
-                                <option value="polygraphy">Полиграфия</option>
-                                <option value="souvenirs">Сувенирная продукция</option>
-                                <option value="design">Дизайн</option>
+                                <option value="Полиграфия">Полиграфия</option>
+                                <option value="Сувенирная продукция">Сувенирная продукция</option>
+                                <option value="Дизайн">Дизайн</option>
                             </select>
                         </div>
                         
+                        <div class="form-group">
+                            <label for="message">Дополнительная информация</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Тираж, сроки, пожелания..."></textarea>
+                        </div>
+                        
+                        <input type="hidden" id="csrfToken" name="csrf_token">
                         <button type="submit" class="btn btn-primary form-submit">Отправить заявку</button>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЧАСТО СПРАШИВАЮТ -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <h2 class="section-title">Часто <span class="gold-text">спрашивают</span></h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Какие сроки изготовления?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Стандартный срок изготовления от 3 до 14 дней в зависимости от сложности заказа и тиража. Срочные заказы обсуждаются индивидуально.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Есть ли минимальная сумма заказа?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Минимальная сумма заказа — 500 рублей. Для корпоративных клиентов работаем по индивидуальным условиям.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Можно ли получить образцы?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, мы предоставляем образцы материалов и печати. Образцы можно получить в нашем офисе в Уфе.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Есть ли доставка по России?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да, мы доставляем заказы по всей России через СДЭК, Почту России и транспортные компании.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Какие форматы файлов вы принимаете?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Принимаем файлы в форматах: PDF, AI, PSD, CDR, EPS, JPG, PNG (300 dpi).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item glass">
+                        <div class="faq-question">
+                            <span>Как оплатить заказ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Наличный и безналичный расчет, оплата по счету для юрлиц, перевод на карту.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -263,14 +320,14 @@
                         <p><i class="fas fa-clock"></i> <span>Пн-Пт: 9:00 - 18:00</span></p>
                         
                         <div class="contact-social">
-                            <a href="#" class="social-circle"><i class="fab fa-vk"></i></a>
-                            <a href="#" class="social-circle"><i class="fab fa-telegram-plane"></i></a>
-                            <a href="#" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" class="social-circle glass"><i class="fab fa-vk"></i></a>
+                            <a href="#" class="social-circle glass"><i class="fab fa-telegram-plane"></i></a>
+                            <a href="#" class="social-circle glass"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
                     
                     <div class="contact-map glass">
-                        <img src="img/map.png" alt="Карта проезда" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;">
+                        <img src="img/map.png" alt="Карта проезда" onerror="this.src='https://placehold.co/600x400/1E3A8A/white?text=г.Уфа,+Дуванский+б-р,+29'">
                     </div>
                 </div>
             </div>
@@ -289,13 +346,13 @@
                 <div class="footer-col">
                     <h4>Навигация</h4>
                     <ul>
-                        <li><a href="#catalog">Каталог</a></li>
+                        <li><a href="#catalog">Услуги</a></li>
                         <li><a href="#reviews">Отзывы</a></li>
                         <li><a href="#order">Заявка</a></li>
+                        <li><a href="#faq">Вопросы</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
                 </div>
-                
                 
                 <div class="footer-col">
                     <h4>Контакты</h4>
@@ -311,31 +368,51 @@
         </div>
     </footer>
 
-    <!-- СКРИПТ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            const prevArrow = document.querySelector('.prev-arrow');
-            const nextArrow = document.querySelector('.next-arrow');
-            let currentSlide = 0;
+    <!-- МОДАЛЬНОЕ ОКНО С УСЛУГАМИ -->
+    <div id="servicesModal" class="modal">
+        <div class="modal-content glass">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalTitle">Услуги</h2>
+            <div id="modalServicesList" class="services-list-modal"></div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО С РЕЗУЛЬТАТАМИ ПОИСКА -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content glass">
+            <span class="modal-close search-modal-close">&times;</span>
+            <h2><i class="fas fa-search"></i> Результаты поиска</h2>
+            <div id="searchResults" class="services-list-modal"></div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО АДМИНКИ -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content glass admin-modal">
+            <span class="modal-close admin-close">&times;</span>
+            <h2><i class="fas fa-lock"></i> Вход в панель администратора</h2>
             
-            function showSlide(index) {
-                if (index < 0) index = slides.length - 1;
-                if (index >= slides.length) index = 0;
-                
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active-dot'));
-                
-                slides[index].classList.add('active');
-                dots[index].classList.add('active-dot');
-                currentSlide = index;
-            }
+            <div id="adminLoginForm" class="admin-login-form">
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" id="adminLogin" placeholder="Введите логин">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="adminPassword" placeholder="Введите пароль">
+                </div>
+                <button class="btn btn-primary" onclick="checkAdminLogin()">Войти</button>
+            </div>
             
-            prevArrow.addEventListener('click', () => showSlide(currentSlide - 1));
-            nextArrow.addEventListener('click', () => showSlide(currentSlide + 1));
-            dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
-        });
-    </script>
+            <div id="adminPanel" style="display: none;">
+                <h3><i class="fas fa-chart-line"></i> Статистика заявок</h3>
+                <div id="adminStats" class="glass"></div>
+                <div id="adminSubmissionsList"></div>
+                <button class="btn btn-secondary" onclick="logoutAdmin()">Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
