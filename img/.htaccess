@@ -1,0 +1,179 @@
+# ==========================================
+# Файл .htaccess для сайта издательства «Самрау-Медиа»
+# Настройки безопасности, кеширования и оптимизации
+# ==========================================
+
+# ==========================================
+# 1. БАЗОВЫЕ НАСТРОЙКИ
+# ==========================================
+
+# Включаем движок mod_rewrite
+RewriteEngine On
+
+# Устанавливаем кодировку по умолчанию
+AddDefaultCharset UTF-8
+
+# Отключаем индексацию директорий (чтобы нельзя было увидеть список файлов в папках)
+Options -Indexes
+
+# ==========================================
+# 2. КАСТОМНЫЕ СТРАНИЦЫ ОШИБОК
+# ==========================================
+
+# Страница 404 (не найдено)
+ErrorDocument 404 /404.html
+
+# Страница 403 (доступ запрещен)
+ErrorDocument 403 /403.html
+
+# ==========================================
+# 3. ПЕРЕЗАПИСЬ URL (ЧПУ)
+# ==========================================
+
+# Если запрашивают страницу без расширения .html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# ==========================================
+# 4. ЗАЩИТА ОТ ДОСТУПА К СЛУЖЕБНЫМ ФАЙЛАМ
+# ==========================================
+
+# Запрещаем доступ к файлам .json (кроме services.json)
+<FilesMatch "^(?!services\.json).*\.json$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Запрещаем доступ к .htaccess и .gitignore
+<FilesMatch "^\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Запрещаем доступ к файлам с расширениями .log, .ini, .conf, .bak, .md
+<FilesMatch "\.(log|ini|conf|bak|md|sql|zip|rar)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# ==========================================
+# 5. ЗАЩИТА ОТ XSS И SQL-ИНЪЕКЦИЙ
+# ==========================================
+
+# Фильтрация опасных символов в URL
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule .* index.html [F,L]
+
+# ==========================================
+# 6. ЗАГОЛОВКИ БЕЗОПАСНОСТИ
+# ==========================================
+
+# Защита от кликджекинга (запрещаем встраивание в iframe)
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Защита от MIME-типов (браузер не должен интерпретировать файлы как другие типы)
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Включаем XSS-фильтр в браузере
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Политика реферера
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy (базовая)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"
+</IfModule>
+
+# ==========================================
+# 7. КЕШИРОВАНИЕ СТАТИЧЕСКИХ ФАЙЛОВ
+# ==========================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Кеширование изображений на 1 месяц
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    
+    # Кеширование CSS и JS на 1 неделю
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    
+    # Кеширование шрифтов на 1 месяц
+    ExpiresByType font/woff "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 month"
+    ExpiresByType application/font-woff "access plus 1 month"
+    
+    # Кеширование HTML на 1 день
+    ExpiresByType text/html "access plus 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Дополнительные заголовки кеширования
+    <FilesMatch "\.(ico|jpe?g|png|gif|swf|webp)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    <FilesMatch "\.(css)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+    <FilesMatch "\.(js)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+    <FilesMatch "\.(woff|woff2|ttf|eot)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+</IfModule>
+
+# ==========================================
+# 8. СЖАТИЕ ФАЙЛОВ (GZIP)
+# ==========================================
+
+<IfModule mod_deflate.c>
+    # Включаем сжатие для указанных типов файлов
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+    
+    # Убираем заголовки для старых браузеров
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    
+    # Не сжимаем уже сжатые файлы
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|zip|rar)$ no-gzip
+</IfModule>
+
+# ==========================================
+# 9. РЕДИРЕКТ С HTTP НА HTTPS (если есть SSL)
+# ==========================================
+
+# Раскомментируйте эти строки, если на хостинге установлен SSL-сертификат
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ==========================================
+# 10. ЗАПРЕТ ПРЯМОГО ДОСТУПА К ПАПКАМ
+# ==========================================
+
+# Запрещаем доступ к папке data (кроме services.json)
+<IfModule mod_rewrite.c>
+    RewriteRule ^data/(?!services\.json).*$ - [F,L]
+</IfModule>
+
+# ==========================================
+# 11. НАСТРОЙКА ОБРАБОТКИ ОШИБОК 404 ДЛЯ JS/CSS
+# ==========================================
+
+# Если файл не найден, не показывать ошибку 404 для статики
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule \.(css|js|png|jpg|jpeg|gif|webp|svg|woff|woff2|ttf)$ - [R=404,L]
+</IfModule>
